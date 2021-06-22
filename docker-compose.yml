@@ -1,0 +1,47 @@
+version: '3'
+
+services: 
+  redis:
+    image: redis:alpine
+    container_name: redis-indexer-tree
+    restart: always
+    command: redis-server --requirepass ${REDIS_PASS}
+    ports:
+      - ${REDIS_PORT}:6379
+    volumes:
+      - ${REDIS_VOLUME_PATH}:/data
+    networks:
+      - indexer-tree
+
+  mongo:
+    image: mongo
+    container_name: mongo-indexer-tree
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASS}
+    ports:
+      - ${MONGO_PORT}:27017
+    volumes:
+      - ${MONGO_VOLUME_PATH}:/data/db
+    networks:
+      - indexer-tree
+
+  app:
+    image: app
+    container_name: app-indexer-tree
+    ports:
+      - ${APP_PORT}:3000
+    build:
+      context: ./
+    volumes:
+      - ./src:/app/src
+    networks:
+      - indexer-tree
+    depends_on:
+      - redis
+      - mongo
+
+networks:
+  indexer-tree:
+    driver: bridge
