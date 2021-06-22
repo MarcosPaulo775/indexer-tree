@@ -1,0 +1,39 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "es2017",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "incremental": true,
+    "jsx": "preserve",
+    "strict": true,
+    "baseUrl": "./src",
+    "paths": {
+      "@components/*": [
+        "./client/components/*"
+      ],
+      "@icons/*": [
+        "./client/components/icons/*"
+      ],
+      "@public/*": [
+        "./client/public/*"
+      ],
+      "@chokidar/*": [
+        "./server/chokidar/*"
+      ],
+      "@shared/*": [
+        "./shared/*"
+      ]
+    }
+  },
+  "include": [
+    "src/server/**/*.ts",
+    "src/shared/**/*.ts",
+    "src/main.ts",
+  ]
+}
