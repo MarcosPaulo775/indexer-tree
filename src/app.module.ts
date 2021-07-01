@@ -1,7 +1,10 @@
+import { BullModule } from '@nestjs/bull';
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config'
-import { BullModule } from '@nestjs/bull'
+import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
+
+import { ChokidarModule } from './modules/chokidar/chokidar.module';
+import { FileModule } from './modules/file/file.module';
 
 @Module({
   imports: [
@@ -20,13 +23,13 @@ import { MongooseModule } from '@nestjs/mongoose';
         useUnifiedTopology: true,
         useFindAndModify: false,
         useCreateIndex: true,
-        authSource: 'admin'
-      },
+        authSource: 'admin',
+      }
     ),
+    ChokidarModule,
+    FileModule,
   ],
   controllers: [],
   providers: [],
 })
-export class AppModule { }
-
-
+export class AppModule {}

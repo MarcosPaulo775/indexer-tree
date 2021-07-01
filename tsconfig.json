@@ -12,28 +12,17 @@
     "incremental": true,
     "jsx": "preserve",
     "strict": true,
-    "baseUrl": "./src",
+    "baseUrl": "./",
     "paths": {
-      "@components/*": [
-        "./client/components/*"
-      ],
-      "@icons/*": [
-        "./client/components/icons/*"
-      ],
-      "@public/*": [
-        "./client/public/*"
-      ],
       "@chokidar/*": [
-        "./server/chokidar/*"
+        "./src/modules/chokidar/*"
+      ],
+      "@file/*": [
+        "./src/modules/file/*"
       ],
       "@shared/*": [
-        "./shared/*"
+        "./src/shared/*"
       ]
     }
-  },
-  "include": [
-    "src/server/**/*.ts",
-    "src/shared/**/*.ts",
-    "src/main.ts",
-  ]
+  }
 }
