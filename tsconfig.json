@@ -1,4 +1,5 @@
 {
+  "compileOnSave": false,
   "compilerOptions": {
     "module": "commonjs",
     "declaration": true,
@@ -8,21 +9,21 @@
     "allowSyntheticDefaultImports": true,
     "target": "es2017",
     "sourceMap": true,
-    "outDir": "./dist",
     "incremental": true,
     "jsx": "preserve",
     "strict": true,
-    "baseUrl": "./",
+    "baseUrl": ".",
     "paths": {
-      "@chokidar/*": [
-        "./src/modules/chokidar/*"
-      ],
-      "@file/*": [
-        "./src/modules/file/*"
+      "@modules/*": [
+        "./src/modules/*"
       ],
       "@shared/*": [
         "./src/shared/*"
       ]
     }
-  }
+  },
+  "exclude": [
+    "node_modules",
+    "tmp"
+  ]
 }

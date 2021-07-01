@@ -36,7 +36,7 @@ services:
       context: ./
     volumes:
       - ./src:/app/src
-      - ${INDEXER_VOLUME}:/app/files
+      - ${INDEXER_VOLUME}:/files
     networks:
       - indexer-tree
     depends_on:

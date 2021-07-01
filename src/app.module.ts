@@ -3,6 +3,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 
+import config from './config';
 import { ChokidarModule } from './modules/chokidar/chokidar.module';
 import { FileModule } from './modules/file/file.module';
 
@@ -10,22 +11,9 @@ import { FileModule } from './modules/file/file.module';
   imports: [
     ConfigModule.forRoot(),
     BullModule.forRoot({
-      redis: {
-        host: 'localhost',
-        password: process.env.REDIS_PASS,
-        port: Number(process.env.REDIS_PORT),
-      },
+      redis: config?.redis,
     }),
-    MongooseModule.forRoot(
-      `mongodb://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@mongo:${process.env.MONGO_PORT}/${process.env.MONGO_DATABASE}`,
-      {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-        useFindAndModify: false,
-        useCreateIndex: true,
-        authSource: 'admin',
-      }
-    ),
+    MongooseModule.forRoot(config?.mongo?.uri, config?.mongo?.options),
     ChokidarModule,
     FileModule,
   ],

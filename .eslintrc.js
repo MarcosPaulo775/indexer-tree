@@ -1,8 +1,10 @@
 module.exports = {
-  parser: '@typescript-eslint/parser',
+  parser: "@typescript-eslint/parser",
   parserOptions: {
-    project: ['tsconfig.json', './src/client/tsconfig.json'],
-    sourceType: 'module',
+    project: [
+      "tsconfig.json",
+    ],
+    sourceType: "module"
   },
   plugins: [
     '@typescript-eslint/eslint-plugin',
@@ -13,34 +15,40 @@ module.exports = {
     'plugin:prettier/recommended',
   ],
   root: true,
+  ignorePatterns: [
+    ".eslintrc.js",
+    "**/node_modules/**"
+  ],
   env: {
     browser: true,
     es2020: true,
     node: true,
     jest: true,
   },
-  ignorePatterns: ['.eslintrc.js', '*.js', '*.jsx', '*.d.ts'],
   rules: {
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/no-empty-function': 'off',
+    "@typescript-eslint/no-explicit-any": 'off',
     "semi": [2, "always"],
-    "quotes": ["warn", "single"],
+    "quotes": ['warn', 'single'],
     "prettier/prettier": 'warn',
     "import-helpers/order-imports": [
       "warn",
       {
         "newlinesBetween": "always",
         "groups": [
-          ["/^@react/","/^react/", "/^@next/","/^next/", "/^@nest/",],
-          "module",
-          "/^@components/",
-          "/^@validators/",
-          "/^@icons/",
+          ["/^@nest/", "module"],
+          "/^@modules/",
+          "/^@shared/",
           [
             "/^src/",
             "parent",
             "sibling",
             "index"
+          ],
+          [
+            "/^@env/",
+            "/^src/config/"
           ]
         ],
         "alphabetize": {

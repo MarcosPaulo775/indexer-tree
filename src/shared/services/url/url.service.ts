@@ -1,6 +1,5 @@
-import { Injectable } from '@nestjs/common';
-
 import { File } from '@file/models/file.interface';
+import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class UrlService {
@@ -18,7 +17,7 @@ export class UrlService {
     return {
       name,
       path,
-      isDirectory: name === 'files'
+      isDirectory: name === 'files',
     } as File;
   }
 }
