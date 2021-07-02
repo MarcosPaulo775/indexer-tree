@@ -1,11 +1,13 @@
-import { Schema } from 'mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Document } from 'mongoose';
 
-export const FileSchema = new Schema(
-  {
-    name: { type: String, nullable: false },
-    path: { type: [String], nullable: false },
-    isDirectory: { type: Boolean, nullable: false, default: false },
-    base64: { type: String, nullable: true, default: null },
-  },
-  { versionKey: false }
-);
+@Schema({ versionKey: false })
+export class File {
+  @Prop() name!: string;
+  @Prop() path!: string[];
+  @Prop() isDirectory!: boolean;
+  @Prop({ type: String, required: false }) base64!: string | null;
+}
+
+export type FileDocument = File & Document;
+export const FileSchema = SchemaFactory.createForClass(File);

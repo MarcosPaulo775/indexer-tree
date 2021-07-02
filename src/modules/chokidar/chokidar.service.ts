@@ -2,8 +2,11 @@ import { Injectable } from '@nestjs/common';
 import { FSWatcher } from 'chokidar';
 
 import { FileService } from '@modules/file/file.service';
+import { FileDto } from '@modules/file/models/file.dto';
 
 import { UrlService } from '@shared/services/url/url.service';
+
+import config from 'src/config';
 
 @Injectable()
 export class ChokidarService {
@@ -17,34 +20,48 @@ export class ChokidarService {
     this.chokidar = new FSWatcher({
       persistent: true,
       ignored: '*.db',
+      // followSymlinks: false,
       awaitWriteFinish: true,
       ignoreInitial,
     });
 
     try {
-      this.chokidar.add('../files');
+      this.chokidar.add(config?.filesDirectory);
 
-      // Add event listeners.
       this.chokidar
-        .on('all', (event, url) => {
-          console.log(url);
-          const { name, path } = this.urlService.extractFileInformation(url);
-          if (name !== 'files') {
-            // const file = await this.fileService.isIndexed(name, path);
-            //if (!file) {
-            //  console.log(name)
-            //  // await this.fileService.create(name, path, false);
-            //}
+        .on('add', async (url) => {
+          if (url !== config?.filesDirectory) {
+            const { name, path } = this.urlService.extractFileInformation(url);
+            const file = await this.fileService.isIndexed(name, path);
+            if (!file) {
+              await this.fileService.create(new FileDto(name, path, false));
+            }
+          }
+        })
+        .on('addDir', async (url) => {
+          if (url !== config?.filesDirectory) {
+            const { name, path } = this.urlService.extractFileInformation(url);
+            const file = await this.fileService.isIndexed(name, path);
+            if (!file) {
+              await this.fileService.create(new FileDto(name, path, true));
+            }
           }
         })
         .on('ready', () => {
           console.log('read');
         })
         .on('error', (erro) => {
-          console.log(erro);
+          console.log(`ERROR: ${erro}`);
         })
-        .on('raw', (event, path) => {
-          console.log(path);
+        .on('all', (event, path) => {
+          console.log('');
+          console.log('ALL:');
+          console.log(event, path);
+        })
+        .on('raw', (event, path, details) => {
+          console.log('');
+          console.log('RAW:');
+          console.log(event, path, details);
         });
     } catch (e) {
       return JSON.stringify(e);

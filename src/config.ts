@@ -6,8 +6,10 @@ const mongoPort = process.env.MONGO_PORT;
 
 export default {
   production: process?.env?.APP_ENV === 'production',
+  filesDirectory:
+    process?.env?.APP_ENV === 'production' ? './files/' : '../files/',
   redis: {
-    host: process.env.REDIS_HOST,
+    host: process?.env?.REDIS_HOST,
     password: process.env.REDIS_PASS,
     port: Number(process.env.REDIS_PORT),
   },
