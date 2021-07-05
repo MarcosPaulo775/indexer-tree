@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
 
-import config from 'src/config';
+import config from '../../../config';
 
 @Injectable()
 export class UrlService {
-  extractFileInformation(url: string) {
-    url = url.replace(config?.filesDirectory, '');
+  extractUrlInformation(url: string) {
+    url = url.replace(config.filesDirectory, '');
     const aux = url.split('/');
     const name = aux[aux.length - 1];
     const path = [];

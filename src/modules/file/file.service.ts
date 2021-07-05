@@ -19,7 +19,7 @@ export class FileService {
     const file = await this.fileModel.findById(id).exec();
 
     if (!file) {
-      throw new Error('Arquivo Inexistente!');
+      return 'Arquivo Inexistente!';
     }
 
     const resp = await this.fileModel
@@ -29,6 +29,19 @@ export class FileService {
     return resp.ok === 1
       ? 'Arquivo atualizado com sucesso!'
       : 'Erro ao atualizar arquivo!';
+  }
+
+  async delete(id: string): Promise<boolean> {
+    const resp = await this.fileModel.deleteOne({ _id: id }).exec();
+    return resp.ok === 1;
+  }
+
+  async findOneByNameAndPathAndIsDirectory(
+    name: string,
+    path: string[],
+    isDirectory: boolean
+  ): Promise<FileDocument | null> {
+    return await this.fileModel.findOne({ name, path, isDirectory }).exec();
   }
 
   async isIndexed(name: string, path: string[]): Promise<boolean> {

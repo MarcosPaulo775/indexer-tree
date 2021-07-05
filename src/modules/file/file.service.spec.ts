@@ -44,7 +44,7 @@ describe('FileService', () => {
     expect(fileModel).toBeDefined();
   });
 
-  it('Create File', async () => {
+  it('create file', async () => {
     jest.spyOn(fileModel, 'create').mockImplementation(async () => file);
     expect(await filesService.create(fileCreate)).toEqual(file);
   });
@@ -78,8 +78,48 @@ describe('FileService', () => {
       .fn()
       .mockReturnValue({ exec: jest.fn().mockResolvedValue(null) });
     expect(await filesService.update('id', fileCreate)).toEqual(
-      Error('Arquivo Inexistente!')
+      'Arquivo Inexistente!'
     );
+  });
+
+  it('delete file sucess', async () => {
+    fileModel.deleteOne = jest
+      .fn()
+      .mockReturnValue({ exec: jest.fn().mockResolvedValue({ ok: 1 }) });
+    expect(await filesService.delete('id')).toBeTruthy();
+  });
+
+  it('delete file error', async () => {
+    fileModel.deleteOne = jest
+      .fn()
+      .mockReturnValue({ exec: jest.fn().mockResolvedValue({ ok: 0 }) });
+    expect(await filesService.delete('id')).toBeFalsy();
+  });
+
+  it('find one by name and path and isDirectory sucess', async () => {
+    fileModel.findOne = jest
+      .fn()
+      .mockReturnValue({ exec: jest.fn().mockResolvedValue(file) });
+    expect(
+      await filesService.findOneByNameAndPathAndIsDirectory(
+        'fileName',
+        ['path', 'fileName'],
+        true
+      )
+    ).toEqual(file);
+  });
+
+  it('find one by name and path and isDirectory error', async () => {
+    fileModel.findOne = jest
+      .fn()
+      .mockReturnValue({ exec: jest.fn().mockResolvedValue(null) });
+    expect(
+      await filesService.findOneByNameAndPathAndIsDirectory(
+        'fileName',
+        ['path', 'fileName'],
+        false
+      )
+    ).toEqual(null);
   });
 
   it('is indexed true', async () => {
