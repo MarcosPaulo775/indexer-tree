@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { FSWatcher } from 'chokidar';
+import { Stats } from 'fs';
 
 import { FileService } from '@modules/file/file.service';
 import { FileDto } from '@modules/file/models/file.dto';
@@ -16,7 +17,7 @@ export class ChokidarService {
     private chokidar: FSWatcher
   ) {}
 
-  async startChokidar(ignoreInitial: boolean) {
+  startChokidar(ignoreInitial: boolean) {
     this.chokidar = new FSWatcher({
       persistent: true,
       ignored: '*.db',
@@ -24,27 +25,21 @@ export class ChokidarService {
       ignoreInitial,
     });
 
-    try {
-      this.chokidar.add(config.filesDirectory);
+    this.chokidar.add(config.filesDirectory);
+    this.chokidar.on('all', this.actionsEvents);
 
-      this.chokidar
-        .on('add', async (url) => {
-          await this.addEvent(url);
-        })
-        .on('addDir', async (url) => {
-          await this.addDirEvent(url);
-        })
-        .on('unlink', async (url) => {
-          await this.unlinkEvent(url);
-        })
-        .on('unlinkDir', async (url) => {
-          await this.unlinkDirEvent(url);
-        })
-        .on('error', (erro) => {
-          console.log(`ERROR: ${erro}`);
-        });
-    } catch (e) {
-      return JSON.stringify(e);
+    return 'Indexador iniciado com sucesso!';
+  }
+
+  actionsEvents(event: 'add' | 'addDir' | 'unlink' | 'unlinkDir', url: string) {
+    if (event === 'add') {
+      this.addEvent(url);
+    } else if (event === 'addDir') {
+      this.addDirEvent(url);
+    } else if (event === 'unlink') {
+      this.unlinkEvent(url);
+    } else {
+      this.unlinkDirEvent(url);
     }
   }
 
@@ -107,15 +102,4 @@ export class ChokidarService {
     }
     return `Pasta ${path.join('/')} inexistente!`;
   }
-
-  // printStatus() {
-  //   return String(JSON.stringify(this.chokidar));
-  // }
-
-  // async stopChokidar() {
-  //   return await this.chokidar
-  //     .close()
-  //     .then(() => 'Indexador parado com sucesso !')
-  //     .catch((e) => JSON.stringify(e));
-  // }
 }

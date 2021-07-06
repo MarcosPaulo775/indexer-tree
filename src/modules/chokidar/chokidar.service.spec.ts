@@ -1,6 +1,7 @@
 import { getModelToken } from '@nestjs/mongoose';
 import { Test, TestingModule } from '@nestjs/testing';
 import { FSWatcher } from 'chokidar';
+import { url } from 'inspector';
 import { Model } from 'mongoose';
 
 import { FileService } from '@modules/file/file.service';
@@ -13,7 +14,7 @@ import { ChokidarService } from './chokidar.service';
 
 describe('ChokidarService', () => {
   let chokidarService: ChokidarService;
-  let fsWatcher: FSWatcher;
+  let chokidar: FSWatcher;
 
   let fileService: FileService;
   let urlService: UrlService;
@@ -34,16 +35,54 @@ describe('ChokidarService', () => {
     }).compile();
 
     chokidarService = module.get<ChokidarService>(ChokidarService);
-    fsWatcher = module.get<FSWatcher>(FSWatcher);
+    chokidar = module.get<FSWatcher>(FSWatcher);
     fileService = module.get<FileService>(FileService);
     urlService = module.get<UrlService>(UrlService);
   });
 
   it('should be defined', () => {
     expect(chokidarService).toBeDefined();
-    expect(fsWatcher).toBeDefined();
+    expect(chokidar).toBeDefined();
     expect(fileService).toBeDefined();
     expect(urlService).toBeDefined();
+  });
+
+  it('actions events add', () => {
+    expect(chokidarService.actionsEvents('add', 'path/url')).toBe(undefined);
+  });
+
+  it('actions events addDir', () => {
+    expect(chokidarService.actionsEvents('addDir', 'path/url')).toBe(undefined);
+  });
+
+  it('actions events unlink', () => {
+    expect(chokidarService.actionsEvents('unlink', 'path/url')).toBe(undefined);
+  });
+
+  it('actions events unlinkDir', () => {
+    expect(chokidarService.actionsEvents('unlinkDir', 'path/url')).toBe(
+      undefined
+    );
+  });
+
+  it('start chokidar ignore initial true', (done) => {
+    chokidar.emit('add', 'arquivo/path');
+    chokidar.on('all', (event, url) => {
+      if (event === 'add') {
+        expect(chokidarService.addEvent(url)).toEqual('');
+      }
+      done();
+    });
+    expect(chokidarService.startChokidar(true)).toEqual(
+      'Indexador iniciado com sucesso!'
+    );
+  });
+
+  it('start chokidar ignore initial false', async () => {
+    jest.spyOn(chokidar, 'on').mockReturnValue({} as FSWatcher);
+    expect(chokidarService.startChokidar(false)).toEqual(
+      'Indexador iniciado com sucesso!'
+    );
   });
 
   it('event add root', async () => {

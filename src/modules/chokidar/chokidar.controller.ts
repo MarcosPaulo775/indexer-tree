@@ -11,9 +11,4 @@ export class ChokidarController {
     this.chokidarService.startChokidar(false);
     return 'Start';
   }
-
-  @Get('/test')
-  test() {
-    return this.chokidarService.printStatus();
-  }
 }
