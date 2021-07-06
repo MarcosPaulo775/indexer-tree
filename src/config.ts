@@ -8,6 +8,7 @@ export default {
   production: process?.env?.APP_ENV === 'production',
   filesDirectory:
     process?.env?.APP_ENV === 'production' ? './files/' : '../files/',
+  ignoreInitial: process?.env?.APP_IGNORE_INITIAL === 'TRUE',
   redis: {
     host: process?.env?.REDIS_HOST,
     password: process.env.REDIS_PASS,

@@ -39,7 +39,7 @@ services:
       - ${ENV_FILE}
     volumes:
       - ./src:/app/src
-      - ${INDEXER_VOLUME}:/files
+      - ${APP_INDEXER_VOLUME}:/files
     networks:
       - indexer-tree
     depends_on:

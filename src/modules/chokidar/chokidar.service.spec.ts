@@ -1,7 +1,6 @@
 import { getModelToken } from '@nestjs/mongoose';
 import { Test, TestingModule } from '@nestjs/testing';
 import { FSWatcher } from 'chokidar';
-import { url } from 'inspector';
 import { Model } from 'mongoose';
 
 import { FileService } from '@modules/file/file.service';
@@ -65,21 +64,22 @@ describe('ChokidarService', () => {
     );
   });
 
-  it('start chokidar ignore initial true', (done) => {
-    chokidar.emit('add', 'arquivo/path');
-    chokidar.on('all', (event, url) => {
-      if (event === 'add') {
-        expect(chokidarService.addEvent(url)).toEqual('');
-      }
-      done();
+  it('actions events change', () => {
+    expect(chokidarService.actionsEvents('change', 'path/url')).toBe(undefined);
+  });
+
+  it('start chokidar ignore initial true', () => {
+    const fnMock = jest.fn().mockImplementation((event, url) => {
+      return chokidarService.actionsEvents(event, url);
     });
+    jest.spyOn(chokidar, 'on').getMockImplementation();
     expect(chokidarService.startChokidar(true)).toEqual(
       'Indexador iniciado com sucesso!'
     );
   });
 
   it('start chokidar ignore initial false', async () => {
-    jest.spyOn(chokidar, 'on').mockReturnValue({} as FSWatcher);
+    jest.spyOn(chokidar, 'on').mockReturnThis();
     expect(chokidarService.startChokidar(false)).toEqual(
       'Indexador iniciado com sucesso!'
     );

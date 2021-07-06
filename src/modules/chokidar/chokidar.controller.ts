@@ -1,14 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
-
-import { ChokidarService } from './chokidar.service';
+import { Controller } from '@nestjs/common';
 
 @Controller('chokidar')
-export class ChokidarController {
-  constructor(private readonly chokidarService: ChokidarService) {}
-
-  @Get('/')
-  startChokidar() {
-    this.chokidarService.startChokidar(false);
-    return 'Start';
-  }
-}
+export class ChokidarController {}
