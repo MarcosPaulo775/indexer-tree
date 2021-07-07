@@ -7,18 +7,18 @@ export class FileProducerService {
   constructor(@InjectQueue('fileIndexer') private fileQueue: Queue) {}
 
   async addFile(url: string) {
-    this.fileQueue.add('addFile', url, { delay: 1000 });
+    await this.fileQueue.add('addFile', url, { delay: 1000 }).catch((e) => e);
   }
 
   async addDir(url: string) {
-    this.fileQueue.add('addDir', url, { delay: 1000 });
+    this.fileQueue.add('addDir', url, { delay: 1000 }).catch((e) => e);
   }
 
   async unlinkFile(url: string) {
-    this.fileQueue.add('unlinkFile', url, { delay: 1000 });
+    this.fileQueue.add('unlinkFile', url, { delay: 1000 }).catch((e) => e);
   }
 
   async unlinkDir(url: string) {
-    this.fileQueue.add('unlinkDir', url, { delay: 1000 });
+    this.fileQueue.add('unlinkDir', url, { delay: 1000 }).catch((e) => e);
   }
 }

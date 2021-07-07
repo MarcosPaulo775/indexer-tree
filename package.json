@@ -11,6 +11,7 @@
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
     "start:dev": "nest start --watch",
+    "prod": "docker-compose --env-file ./env/prod.env up -d --build",
     "dev": "docker-compose --env-file ./env/dev.env up -d --build",
     "dev:down": "docker-compose --env-file ./env/dev.env down",
     "start:debug": "nest start --debug --watch",

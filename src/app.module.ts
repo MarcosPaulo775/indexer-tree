@@ -29,6 +29,6 @@ export class AppModule {
 
   configure(consumer: MiddlewareBuilder) {
     const { router } = createBullBoard([new BullAdapter(this.fileQueue)]);
-    consumer.apply(router).forRoutes('/');
+    consumer.apply(router).forRoutes('/merda');
   }
 }
