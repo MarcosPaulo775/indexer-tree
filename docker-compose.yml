@@ -13,6 +13,20 @@ services:
     networks:
       - indexer-tree
 
+  bullboard:
+    image: deadly0/bull-board
+    container_name: bullboard
+    ports:
+      - 3000:3000
+    environment:
+      REDIS_HOST: redis
+      REDIS_PORT: ${REDIS_PORT}
+      REDIS_PASSWORD: ${REDIS_PASS}
+    depends_on:
+      - redis
+    networks:
+      - indexer-tree
+
   mongo:
     image: mongo
     container_name: mongo-indexer-tree
