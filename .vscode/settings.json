@@ -1,0 +1,19 @@
+{
+  "editor.tabSize": 2,
+  "files.autoSave": "off",
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true, // For ESLint
+    "source.fixAll.tslint": true, // For TSLint
+    "source.fixAll.stylelint": true // For Stylelint
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+}

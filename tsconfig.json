@@ -1,4 +1,5 @@
 {
+  "compileOnSave": false,
   "compilerOptions": {
     "module": "commonjs",
     "declaration": true,
@@ -8,32 +9,22 @@
     "allowSyntheticDefaultImports": true,
     "target": "es2017",
     "sourceMap": true,
-    "outDir": "./dist",
     "incremental": true,
     "jsx": "preserve",
     "strict": true,
-    "baseUrl": "./src",
+    "baseUrl": ".",
+    "outDir": "./dist",
     "paths": {
-      "@components/*": [
-        "./client/components/*"
-      ],
-      "@icons/*": [
-        "./client/components/icons/*"
-      ],
-      "@public/*": [
-        "./client/public/*"
-      ],
-      "@chokidar/*": [
-        "./server/chokidar/*"
+      "@modules/*": [
+        "./src/modules/*"
       ],
       "@shared/*": [
-        "./shared/*"
+        "./src/shared/*"
       ]
     }
   },
-  "include": [
-    "src/server/**/*.ts",
-    "src/shared/**/*.ts",
-    "src/main.ts",
+  "exclude": [
+    "node_modules",
+    "tmp"
   ]
 }

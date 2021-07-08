@@ -27,7 +27,7 @@ services:
     networks:
       - indexer-tree
 
-  app:
+  app-indexer-tree:
     image: app
     container_name: app-indexer-tree
     restart: always
@@ -39,8 +39,7 @@ services:
     env_file:
       - ${ENV_FILE}
     volumes:
-      - ./src:/app/src
-      - ${APP_INDEXER_VOLUME}:/files
+      - ${APP_INDEXER_VOLUME}:/usr/src/indexer-tree/files/bla
     networks:
       - indexer-tree
     depends_on:

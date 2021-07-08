@@ -1,18 +1,19 @@
 {
   "name": "indexer-tree-docker",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "description": "Indexer files",
+  "author": "Marcos P. Costa Mendes",
   "private": true,
-  "license": "UNLICENSED",
+  "license": "MIT License",
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
     "start:dev": "nest start --watch",
-    "docker:dev": "docker-compose up -d --build",
-    "docker:down": "docker-compose down",
+    "prod": "docker-compose -f docker-compose.prod.yml --env-file ./env/prod.env up -d --build",
+    "dev": "docker-compose --env-file ./env/dev.env up -d --build",
+    "dev:down": "docker-compose --env-file ./env/dev.env down",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
@@ -30,6 +31,7 @@
     "@nestjs/mongoose": "^7.2.4",
     "@nestjs/platform-express": "^7.6.15",
     "bull": "^3.22.8",
+    "chokidar": "^3.5.2",
     "mongoose": "^5.12.14",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
@@ -48,6 +50,8 @@
     "@typescript-eslint/parser": "^4.19.0",
     "eslint": "^7.22.0",
     "eslint-config-prettier": "^8.1.0",
+    "eslint-plugin-cypress": "^2.11.3",
+    "eslint-plugin-import-helpers": "^1.1.0",
     "eslint-plugin-prettier": "^3.3.1",
     "jest": "^26.6.3",
     "prettier": "^2.2.1",
@@ -64,6 +68,18 @@
       "json",
       "ts"
     ],
+    "coveragePathIgnorePatterns": [
+      "node_modules",
+      "test-config",
+      "interfaces",
+      "jestGlobalMocks.ts",
+      ".module.ts",
+      ".schema.ts",
+      "config.ts",
+      ".dto.ts",
+      ".d.ts",
+      "main.ts"
+    ],
     "rootDir": "src",
     "testRegex": ".*\\.spec\\.ts$",
     "transform": {
@@ -73,6 +89,10 @@
       "**/*.(t|j)s"
     ],
     "coverageDirectory": "../coverage",
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "moduleNameMapper": {
+      "@modules/(.*)": "<rootDir>/modules/$1",
+      "@shared/(.*)": "<rootDir>/shared/$1"
+    }
   }
 }
