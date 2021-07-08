@@ -6,7 +6,6 @@ export class File {
   @Prop() name!: string;
   @Prop() path!: string[];
   @Prop() isDirectory!: boolean;
-  @Prop({ type: String, required: false }) base64!: string | null;
 }
 
 export type FileDocument = File & Document;
