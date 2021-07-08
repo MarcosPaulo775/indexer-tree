@@ -1,10 +1,19 @@
-FROM node:14-alpine
+FROM node:14-alpine as build
 
-WORKDIR /app
+WORKDIR /usr/src/indexer-tree
 COPY ["package.json", "yarn.lock", "./"]
 RUN yarn install
-COPY . .
+COPY . /usr/src/indexer-tree
 RUN yarn run build
 
+
+FROM node:14-alpine
+
+ENV NODE_ENV production
+WORKDIR /usr/src/indexer-tree
+COPY ["package.json", "yarn.lock", "./"]
+RUN yarn install --production
+USER node
+COPY --chown=node:node --from=build /usr/src/indexer-tree/dist /usr/src/indexer-tree
 EXPOSE 3000
-CMD ["yarn","run", "start:prod"]
+CMD [ "node", "main" ] 

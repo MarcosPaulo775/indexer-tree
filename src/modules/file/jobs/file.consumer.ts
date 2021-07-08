@@ -7,7 +7,7 @@ import config from '../../../config';
 import { FileService } from '../file.service';
 import { FileDto } from '../models/file.dto';
 
-@Processor('fileIndexer')
+@Processor(config.bull.name)
 export class FileConsumer {
   constructor(
     private fileService: FileService,

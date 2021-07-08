@@ -22,7 +22,7 @@ describe('FileConsumer', () => {
     module = await Test.createTestingModule({
       imports: [
         BullModule.registerQueue({
-          name: 'fileIndexer',
+          name: config.bull.name,
           limiter: {
             max: 100,
             duration: 60000,

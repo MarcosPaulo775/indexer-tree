@@ -1,11 +1,7 @@
-import { BullModule, InjectQueue } from '@nestjs/bull';
+import { BullModule } from '@nestjs/bull';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { MiddlewareBuilder } from '@nestjs/core';
 import { MongooseModule } from '@nestjs/mongoose';
-import { Queue } from 'bull';
-import { createBullBoard } from 'bull-board';
-import { BullAdapter } from 'bull-board/bullAdapter';
 
 import config from './config';
 import { ChokidarModule } from './modules/chokidar/chokidar.module';
@@ -24,11 +20,4 @@ import { FileModule } from './modules/file/file.module';
   controllers: [],
   providers: [],
 })
-export class AppModule {
-  constructor(@InjectQueue('fileIndexer') private fileQueue: Queue) {}
-
-  configure(consumer: MiddlewareBuilder) {
-    const { router } = createBullBoard([new BullAdapter(this.fileQueue)]);
-    consumer.apply(router).forRoutes('/merda');
-  }
-}
+export class AppModule {}

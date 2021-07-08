@@ -4,6 +4,7 @@ import { FSWatcher } from 'chokidar';
 
 import { FileProducerService } from '@modules/file/jobs/file-producer.service';
 
+import config from '../../config';
 import { ChokidarService } from './chokidar.service';
 
 describe('ChokidarService', () => {
@@ -13,7 +14,7 @@ describe('ChokidarService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [BullModule.registerQueue({ name: 'fileIndexer' })],
+      imports: [BullModule.registerQueue({ name: config.bull.name })],
       providers: [ChokidarService, FSWatcher, FileProducerService],
     }).compile();
 

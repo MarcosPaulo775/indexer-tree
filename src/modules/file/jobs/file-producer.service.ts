@@ -2,9 +2,11 @@ import { InjectQueue } from '@nestjs/bull';
 import { Injectable } from '@nestjs/common';
 import { Queue } from 'bull';
 
+import config from '../../../config';
+
 @Injectable()
 export class FileProducerService {
-  constructor(@InjectQueue('fileIndexer') private fileQueue: Queue) {}
+  constructor(@InjectQueue(config.bull.name) private fileQueue: Queue) {}
 
   async addFile(url: string) {
     await this.fileQueue.add('addFile', url, { delay: 1000 }).catch((e) => e);

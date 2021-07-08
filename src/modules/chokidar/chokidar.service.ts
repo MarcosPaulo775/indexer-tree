@@ -17,7 +17,7 @@ export class ChokidarService {
       persistent: true,
       awaitWriteFinish: true,
       interval: 1000,
-      ignorePermissionErrors: true,
+      ignorePermissionErrors: false,
       ignoreInitial,
     });
 

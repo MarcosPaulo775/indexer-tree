@@ -1,9 +1,10 @@
-import { BullModule, BullQueueProcessor, InjectQueue } from '@nestjs/bull';
+import { BullModule } from '@nestjs/bull';
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 
 import { SharedModule } from '@shared/shared.module';
 
+import config from '../../config';
 import { FileService } from './file.service';
 import { FileProducerService } from './jobs/file-producer.service';
 import { FileConsumer } from './jobs/file.consumer';
@@ -12,10 +13,10 @@ import { FileSchema } from './models/file.schema';
 @Module({
   imports: [
     MongooseModule.forFeature([
-      { name: 'File', schema: FileSchema, collection: 'files' },
+      { name: 'File', schema: FileSchema, collection: config.mongoCollection },
     ]),
     BullModule.registerQueue({
-      name: 'fileIndexer',
+      name: config.bull.name,
       limiter: {
         max: 100,
         duration: 60000,
