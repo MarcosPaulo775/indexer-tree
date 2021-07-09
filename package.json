@@ -2,7 +2,16 @@
   "name": "indexer-tree-docker",
   "version": "0.0.1",
   "description": "Indexer files",
-  "author": "Marcos P. Costa Mendes",
+  "contributors": [
+    {
+      "name": "Marcos Paulo da Costa Mendes",
+      "url": "https://github.com/MarcosPaulo775"
+    },
+    {
+      "name": "Leonardo Farias de Souza Silva",
+      "url": "https://github.com/leofdss"
+    }
+  ],
   "private": true,
   "license": "MIT License",
   "scripts": {
