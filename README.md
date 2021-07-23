@@ -7,13 +7,13 @@ O indexer-tree é uma aplicação em nodejs para o mapeamento de diretórios e a
 
 A ideia por traz do projeto é simplificar a vida de pequenas empresas/projetos que necessitam de um controle sobre seus arquivos, logo a maneira mais eficaz é a indexação dos arquivos e controle através de uma interface onde não há latencia da navegação entre os diretórios mas somente o tempo de busca no mongoDB.
 
-## Installation
+## Instalação
 
 ```bash
 $ yarn install
 ```
 
-## Running the app
+## Inicializando a aplicação
 
 ```bash
 # development
@@ -37,10 +37,10 @@ O projeto é open source e contamos com a ajuda da comunidade para crescer com o
 
 O projeto ainda é novo e não sabemos onde poderemos chegar mas já temos um questionamento há respeito do futuro do projeto. Teremos suporte somente para o MongoDb ? Está é uma pergunta que ainda não sabemos responder, depende muito do crescimento do projeto e da necessidade da comunidade;
 
-## Stay in touch
+## Mantenha contato
 
-- Authors - [Marcos Paulo](https://github.com/MarcosPaulo775) and [Leonardo Farias](https://github.com/leofdss)
+- Autores - [Marcos Paulo](https://github.com/MarcosPaulo775) e [Leonardo Farias](https://github.com/leofdss).
 
-## License
+## Licensa
 
-Indexer Tree is [MIT licensed](LICENSE).
+Indexer Tree é [MIT licensed](LICENSE).
