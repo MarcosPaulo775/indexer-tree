@@ -1,3 +1,12 @@
+<center>
+
+[![docker-starts](https://img.shields.io/docker/stars/marcospaulo775/indexer-tree?color=light-green)](https://hub.docker.com/r/marcospaulo775/indexer-tree)
+[![docker-pulls](https://img.shields.io/docker/pulls/marcospaulo775/indexer-tree?color=light-green)](https://hub.docker.com/r/marcospaulo775/indexer-tree)
+[![docker-version](https://img.shields.io/docker/v/marcospaulo775/indexer-tree/latest?color=light-green)](https://hub.docker.com/r/marcospaulo775/indexer-tree)
+[![docker-size](https://img.shields.io/docker/image-size/marcospaulo775/indexer-tree/latest?color=light-green)](https://hub.docker.com/r/marcospaulo775/indexer-tree)
+</center>
+
+
 
 ## Descrição
 
