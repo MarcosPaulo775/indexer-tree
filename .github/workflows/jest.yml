@@ -1,10 +1,11 @@
 name: Node Jest
 
 on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+  [push]
+  # push:
+  #   branches: [main]
+  # pull_request:
+  #   branches: [main]
 
 jobs:
   build:
