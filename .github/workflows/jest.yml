@@ -1,11 +1,6 @@
-name: Node Jest
+name: Jest
 
-on:
-  [push]
-  # push:
-  #   branches: [main]
-  # pull_request:
-  #   branches: [main]
+on: [push]
 
 jobs:
   build:
