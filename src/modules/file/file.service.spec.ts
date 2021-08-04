@@ -13,8 +13,7 @@ describe('FileService', () => {
   const fileCreate = new FileDto(
     'fileName',
     ['folder', 'folder2', 'fileName'],
-    false,
-    null
+    false
   );
 
   const file = {

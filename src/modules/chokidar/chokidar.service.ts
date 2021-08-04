@@ -15,8 +15,9 @@ export class ChokidarService {
   startChokidar(ignoreInitial: boolean) {
     this.chokidar = new FSWatcher({
       persistent: true,
-      awaitWriteFinish: true,
-      interval: 1000,
+      usePolling: true,
+      interval: 200,
+      binaryInterval: 600,
       ignorePermissionErrors: false,
       ignoreInitial,
     });

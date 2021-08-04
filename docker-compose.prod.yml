@@ -39,7 +39,7 @@ services:
     env_file:
       - ${ENV_FILE}
     volumes:
-      - ${APP_INDEXER_VOLUME}:/usr/src/indexer-tree/files/bla
+      - ${APP_INDEXER_VOLUME}:/usr/src/indexer-tree/files
     networks:
       - indexer-tree
     depends_on:

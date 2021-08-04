@@ -19,7 +19,7 @@ import { FileSchema } from './models/file.schema';
       name: config.bull.name,
       limiter: {
         max: 100,
-        duration: 60000,
+        duration: 30000,
       },
     }),
     SharedModule,

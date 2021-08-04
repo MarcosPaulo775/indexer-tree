@@ -4,13 +4,12 @@
 [![docker-pulls](https://img.shields.io/docker/pulls/marcospaulo775/indexer-tree?color=light-green)](https://hub.docker.com/r/marcospaulo775/indexer-tree)
 [![docker-version](https://img.shields.io/docker/v/marcospaulo775/indexer-tree/latest?color=light-green)](https://hub.docker.com/r/marcospaulo775/indexer-tree)
 [![docker-size](https://img.shields.io/docker/image-size/marcospaulo775/indexer-tree/latest?color=light-green)](https://hub.docker.com/r/marcospaulo775/indexer-tree)
+
 </center>
-
-
 
 ## Descrição
 
-O indexer-tree é uma aplicação em nodejs para o mapeamento de diretórios e arquivos, onde o objetivo é salvar os endereços no mongoDB para diminuir o tempo de procura e navegação em diretórios. 
+O indexer-tree é uma aplicação em nodejs para o mapeamento de diretórios e arquivos, onde o objetivo é salvar os endereços no mongoDB para diminuir o tempo de procura e navegação em diretórios.
 
 ## Justificativa
 
@@ -41,10 +40,6 @@ O projeto é open source e contamos com a ajuda da comunidade para crescer com o
 - Criar interface Web para busca dos arquivos e download;
 - Criar imagens docker separadas com e sem a interface web;
 - Salvar a tipagem de arquivos para mais opções de busca;
-
-## Questionamentos
-
-O projeto ainda é novo e não sabemos onde poderemos chegar mas já temos um questionamento há respeito do futuro do projeto. Teremos suporte somente para o MongoDb ? Está é uma pergunta que ainda não sabemos responder, depende muito do crescimento do projeto e da necessidade da comunidade;
 
 ## Mantenha contato
 
