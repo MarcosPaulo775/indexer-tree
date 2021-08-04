@@ -24,4 +24,4 @@ jobs:
           context: .
           push: ${{ github.event_name != 'pull_request' }}
           repository: marcospaulo775/indexer-tree
-          tags: ${{ github.ref }} , 33
+          tags: v00
