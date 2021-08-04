@@ -1,9 +1,9 @@
-name: Node.js CI
+name: Jest
 
 on: [push]
 
 jobs:
-  node-test:
+  jest:
     runs-on: ubuntu-latest
 
     steps:

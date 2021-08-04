@@ -1,9 +1,11 @@
 name: Docker CI
 
-on: [push]
-
+on:
+  push:
+    branches:
+      - main
 jobs:
-  node-test:
+  jest:
     runs-on: ubuntu-latest
 
     steps:
@@ -21,7 +23,7 @@ jobs:
       - run: yarn test
 
   publish:
-    needs: [node-test]
+    needs: [jest]
     runs-on: ubuntu-latest
 
     steps:
@@ -44,4 +46,4 @@ jobs:
         with:
           file: ./Dockerfile.prod
           push: ${{ github.event_name != 'pull_request' }}
-          tags: marcospaulo775/indexer-tree:${{ steps.vars.outputs.tag }}, marcospaulo775/indexer-tree:3000
+          tags: marcospaulo775/indexer-tree:${{ steps.vars.outputs.tag }}, marcospaulo775/indexer-tree:latest
