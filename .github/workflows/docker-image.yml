@@ -24,6 +24,6 @@ jobs:
       - name: Publish to Docker Hub
         uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
         with:
-          context: ./Dockerfile.prod
+          file: ./Dockerfile.prod
           push: ${{ github.event_name != 'pull_request' }}
           tags: marcospaulo775/indexer-tree:${{ steps.vars.outputs.tag }}, marcospaulo775/indexer-tree:3000
