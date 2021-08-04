@@ -1,4 +1,4 @@
-name: Docker Image CI
+name: Docker Image CI/CD
 
 on: [push]
 
@@ -7,6 +7,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Check out the repository
       - uses: actions/checkout@v2
+
       - name: Build the Docker image
         run: docker build . --file Dockerfile.prod --tag marcospaulo775/indexer-tree:${GITHUB_REF##*/}
+
+      - name: Publish to Docker Hub
+        uses: docker/build-push-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          repository: marcospaulo775/indexer-tree
+          tags: ${GITHUB_REF##*/} , 33

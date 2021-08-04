@@ -4,13 +4,12 @@
 [![docker-pulls](https://img.shields.io/docker/pulls/marcospaulo775/indexer-tree?color=light-green)](https://hub.docker.com/r/marcospaulo775/indexer-tree)
 [![docker-version](https://img.shields.io/docker/v/marcospaulo775/indexer-tree/latest?color=light-green)](https://hub.docker.com/r/marcospaulo775/indexer-tree)
 [![docker-size](https://img.shields.io/docker/image-size/marcospaulo775/indexer-tree/latest?color=light-green)](https://hub.docker.com/r/marcospaulo775/indexer-tree)
+
 </center>
-
-
 
 ## Descrição
 
-O indexer-tree é uma aplicação em nodejs para o mapeamento de diretórios e arquivos, onde o objetivo é salvar os endereços no mongoDB para diminuir o tempo de procura e navegação em diretórios. 
+O indexer-tree é uma aplicação em nodejs para o mapeamento de diretórios e arquivos, onde o objetivo é salvar os endereços no mongoDB para diminuir o tempo de procura e navegação em diretórios.
 
 ## Justificativa
 
