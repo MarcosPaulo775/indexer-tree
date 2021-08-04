@@ -10,6 +10,10 @@ jobs:
       - name: Check out the repository
         uses: actions/checkout@v2
 
+      - name: Set tag
+        id: vars
+        run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
+
       - name: Log into docker hub
         if: github.event_name != 'pull_request'
         uses: docker/login-action@28218f9b04b4f3f62068d7b6ce6ca5b26e35336c
@@ -22,4 +26,4 @@ jobs:
         with:
           context: ./Dockerfile.prod
           push: ${{ github.event_name != 'pull_request' }}
-          tags: marcospaulo775/indexer-tree:3000
+          tags: marcospaulo775/indexer-tree:${{ steps.vars.outputs.tag }}, marcospaulo775/indexer-tree:3000
