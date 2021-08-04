@@ -1,5 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 
+import config from '../../../config';
 import { UrlService } from './url.service';
 
 describe('UrlService', () => {
@@ -18,9 +19,16 @@ describe('UrlService', () => {
   });
 
   it('extract url information', () => {
-    expect(urlService.extractUrlInformation('url/qualquer/file')).toEqual({
-      name: 'file',
-      path: ['url', 'qualquer', 'file'],
-    });
+    if (config.removeFilename) {
+      expect(urlService.extractUrlInformation('url/qualquer/file')).toEqual({
+        name: 'file',
+        path: ['url', 'qualquer'],
+      });
+    } else {
+      expect(urlService.extractUrlInformation('url/qualquer/file')).toEqual({
+        name: 'file',
+        path: ['url', 'qualquer', 'file'],
+      });
+    }
   });
 });

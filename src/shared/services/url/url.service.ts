@@ -14,6 +14,10 @@ export class UrlService {
       path.push(value);
     }
 
+    if (config.removeFilename) {
+      path.pop();
+    }
+
     return { name, path };
   }
 }

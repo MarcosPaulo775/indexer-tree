@@ -41,10 +41,6 @@ O projeto é open source e contamos com a ajuda da comunidade para crescer com o
 - Criar imagens docker separadas com e sem a interface web;
 - Salvar a tipagem de arquivos para mais opções de busca;
 
-## Questionamentos
-
-O projeto ainda é novo e não sabemos onde poderemos chegar mas já temos um questionamento há respeito do futuro do projeto. Teremos suporte somente para o MongoDb ? Está é uma pergunta que ainda não sabemos responder, depende muito do crescimento do projeto e da necessidade da comunidade;
-
 ## Mantenha contato
 
 - Autores - [Marcos Paulo](https://github.com/MarcosPaulo775) e [Leonardo Farias](https://github.com/leofdss).
