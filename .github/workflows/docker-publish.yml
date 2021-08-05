@@ -1,9 +1,9 @@
 name: Docker CI
 
 on:
-  push:
-    branches:
-      - main
+  release:
+    types: [published]
+
 jobs:
   jest:
     runs-on: ubuntu-latest
@@ -35,7 +35,6 @@ jobs:
         run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
 
       - name: Log into docker hub
-        if: github.event_name != 'pull_request'
         uses: docker/login-action@28218f9b04b4f3f62068d7b6ce6ca5b26e35336c
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
@@ -45,5 +44,5 @@ jobs:
         uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
         with:
           file: ./Dockerfile.prod
-          push: ${{ github.event_name != 'pull_request' }}
+          push: true
           tags: marcospaulo775/indexer-tree:${{ steps.vars.outputs.tag }}, marcospaulo775/indexer-tree:latest

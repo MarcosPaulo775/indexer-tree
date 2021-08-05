@@ -1,5 +1,8 @@
 <center>
 
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/MarcosPaulo775/indexer-tree-docker/Jest?label=Jest&logo=Jest)
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/MarcosPaulo775/indexer-tree-docker/Docker%20CI?label=Docker%20CI&logo=docker&logoColor=white)
+
 [![docker-starts](https://img.shields.io/docker/stars/marcospaulo775/indexer-tree?color=light-green)](https://hub.docker.com/r/marcospaulo775/indexer-tree)
 [![docker-pulls](https://img.shields.io/docker/pulls/marcospaulo775/indexer-tree?color=light-green)](https://hub.docker.com/r/marcospaulo775/indexer-tree)
 [![docker-version](https://img.shields.io/docker/v/marcospaulo775/indexer-tree/latest?color=light-green)](https://hub.docker.com/r/marcospaulo775/indexer-tree)
@@ -7,21 +10,17 @@
 
 </center>
 
-## Descrição
+## Description
 
-O indexer-tree é uma aplicação em nodejs para o mapeamento de diretórios e arquivos, onde o objetivo é salvar os endereços no mongoDB para diminuir o tempo de procura e navegação em diretórios.
+The indexer-tree is an application in nodejs for mapping directories and files, where the objective is to save the path in mongoDB to decrease the search and browsing time in directories.
 
-## Justificativa
-
-A ideia por traz do projeto é simplificar a vida de pequenas empresas/projetos que necessitam de um controle sobre seus arquivos, logo a maneira mais eficaz é a indexação dos arquivos e controle através de uma interface onde não há latencia da navegação entre os diretórios mas somente o tempo de busca no mongoDB.
-
-## Instalação
+## Installation
 
 ```bash
 $ yarn install
 ```
 
-## Inicializando a aplicação
+## Starting the application
 
 ```bash
 # development
@@ -31,20 +30,10 @@ $ yarn dev
 $ yarn prod
 ```
 
-## Planejamento
+## Stay in touch
 
-O projeto é open source e contamos com a ajuda da comunidade para crescer com o projeto. Hoje temos as seguintes ideias:
+- Authors - [Marcos Paulo](https://github.com/MarcosPaulo775) and [Leonardo Farias](https://github.com/leofdss).
 
-- Melhorar log de eventos da aplicação;
-- Maior controle da aplicação através de mais variáveis de ambientes disponíveis;
-- Criar interface Web para busca dos arquivos e download;
-- Criar imagens docker separadas com e sem a interface web;
-- Salvar a tipagem de arquivos para mais opções de busca;
+## License
 
-## Mantenha contato
-
-- Autores - [Marcos Paulo](https://github.com/MarcosPaulo775) e [Leonardo Farias](https://github.com/leofdss).
-
-## Licensa
-
-Indexer Tree é [MIT licensed](LICENSE).
+Indexer Tree is [MIT licensed](LICENSE).
