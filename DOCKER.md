@@ -6,13 +6,17 @@
 
 Indexer Tree is an application in nodejs for mapping directories and files, where the objective is to save the addresses in mongoDB to reduce the search and browsing time in directories.
 
+### Bull-Board
+
+Bull-board runing on `/bull-board`.
+
 ## Example with docker-compose:
 
 ##### .env
 
 ```
 APP_PORT=3001
-APP_INDEXER_VOLUME=/home
+APP_INDEXER_FILES=/home
 APP_IGNORE_INITIAL=FALSE
 APP_MONGO_COLLECTION=files
 APP_REMOVE_FILENAME=FALSE
@@ -70,7 +74,7 @@ services:
     env_file:
       - ${ENV_FILE}
     volumes:
-      - ${APP_INDEXER_VOLUME}:/usr/src/indexer-tree/files
+      - ${APP_INDEXER_FILES}:/usr/src/indexer-tree/files
     networks:
       - indexer-tree
     depends_on:
@@ -84,6 +88,7 @@ networks:
 ```
 
 ## Environments variables
+
 ##### App
 
 `APP_IGNORE_INITIAL` (default: `true`)

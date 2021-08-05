@@ -5,7 +5,10 @@ import config from '../../../config';
 @Injectable()
 export class UrlService {
   extractUrlInformation(url: string) {
-    url = url.replace(config.filesDirectory, '');
+    if (config.isDocker) {
+      url = url.replace(config.filesDirectory, '');
+    }
+
     const aux = url.split('/');
     const name = aux[aux.length - 1];
     const path = [];

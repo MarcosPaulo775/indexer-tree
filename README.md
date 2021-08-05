@@ -23,10 +23,17 @@ $ yarn install
 ## Starting the application
 
 ```bash
-# development
+# node development - edit variables on ./env/node.env
+$ yarn start
+
+# node production mode - edit variables on ./env/node.env
+$ yarn build
+$ yarn start:prod
+
+# docker development
 $ yarn dev
 
-# production mode
+# docker production mode
 $ yarn prod
 ```
 

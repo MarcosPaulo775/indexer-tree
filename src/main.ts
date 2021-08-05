@@ -6,8 +6,6 @@ import { AppModule } from './app.module';
 import config from './config';
 
 async function bootstrap() {
-  console.log(process.env.ENV_FILE);
-  console.log(config);
   const app = await NestFactory.create(AppModule);
   await app.listen(3000);
   const chokidarService = app.get<ChokidarService>(ChokidarService);

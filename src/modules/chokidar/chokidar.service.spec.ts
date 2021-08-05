@@ -80,14 +80,10 @@ describe('ChokidarService', () => {
   });
 
   it('start chokidar ignore initial true', () => {
-    expect(chokidarService.startChokidar(true)).toEqual(
-      'Indexador iniciado com sucesso!'
-    );
+    expect(chokidarService.startChokidar(true)).toEqual('Indexer started!');
   });
 
   it('start chokidar ignore initial false', async () => {
-    expect(chokidarService.startChokidar(false)).toEqual(
-      'Indexador iniciado com sucesso!'
-    );
+    expect(chokidarService.startChokidar(false)).toEqual('Indexer started!');
   });
 });

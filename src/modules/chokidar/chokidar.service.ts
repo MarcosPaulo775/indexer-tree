@@ -27,7 +27,7 @@ export class ChokidarService {
       this.actionsEvents(event, url);
     });
 
-    return 'Indexador iniciado com sucesso!';
+    return 'Indexer started!';
   }
 
   actionsEvents(

@@ -18,8 +18,8 @@ import { FileSchema } from './models/file.schema';
     BullModule.registerQueue({
       name: config.bull.name,
       limiter: {
-        max: 100,
-        duration: 30000,
+        max: 1,
+        duration: 1000,
       },
     }),
     SharedModule,
