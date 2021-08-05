@@ -4,10 +4,15 @@ const mongoUser = process.env.MONGO_USER;
 const mongoPassword = process.env.MONGO_PASS;
 const mongoPort = process.env.MONGO_PORT;
 
+const isDocker = process.env.APP_DOCKER === 'TRUE';
+const dockerFilesDirectory =
+  process?.env?.NODE_ENV === 'production' ? 'files/' : '../files/';
+const nodeFilesDirectory = process?.env?.APP_INDEXER_FILES ?? './';
+
 export default {
   production: process?.env?.NODE_ENV === 'production',
-  filesDirectory:
-    process?.env?.NODE_ENV === 'production' ? 'files/' : '../files/',
+  isDocker,
+  filesDirectory: isDocker ? dockerFilesDirectory : nodeFilesDirectory,
   ignoreInitial: process?.env?.APP_IGNORE_INITIAL
     ? process?.env?.APP_IGNORE_INITIAL === 'TRUE'
     : true,

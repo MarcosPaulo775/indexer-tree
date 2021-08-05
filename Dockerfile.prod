@@ -9,6 +9,7 @@ RUN yarn run build
 
 FROM node:14-alpine
 
+ENV APP_DOCKER TRUE
 ENV NODE_ENV production
 WORKDIR /usr/src/indexer-tree
 COPY ["package.json", "yarn.lock", "./"]

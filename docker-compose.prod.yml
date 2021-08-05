@@ -8,8 +8,6 @@ services:
     command: redis-server --requirepass ${REDIS_PASS}
     ports:
       - ${REDIS_PORT}:6379
-    volumes:
-      - ${REDIS_VOLUME_PATH}:/data
     networks:
       - indexer-tree
 
@@ -22,8 +20,6 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASS}
     ports:
       - ${MONGO_PORT}:27017
-    volumes:
-      - ${MONGO_VOLUME_PATH}:/data/db
     networks:
       - indexer-tree
 
@@ -39,7 +35,7 @@ services:
     env_file:
       - ${ENV_FILE}
     volumes:
-      - ${APP_INDEXER_VOLUME}:/usr/src/indexer-tree/files
+      - ${APP_INDEXER_FILES}:/usr/src/indexer-tree/files
     networks:
       - indexer-tree
     depends_on:
