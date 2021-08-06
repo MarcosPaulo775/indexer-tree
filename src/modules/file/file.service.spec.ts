@@ -56,7 +56,7 @@ describe('FileService', () => {
       .fn()
       .mockReturnValue({ exec: jest.fn().mockResolvedValue({ ok: 1 }) });
     expect(await filesService.update('id', fileCreate)).toEqual(
-      'Arquivo atualizado com sucesso!'
+      'File updated successfully!'
     );
   });
 
@@ -68,7 +68,7 @@ describe('FileService', () => {
       .fn()
       .mockReturnValue({ exec: jest.fn().mockResolvedValue({ ok: 0 }) });
     expect(await filesService.update('id', fileCreate)).toEqual(
-      'Erro ao atualizar arquivo!'
+      'Error updating file!'
     );
   });
 
@@ -77,7 +77,7 @@ describe('FileService', () => {
       .fn()
       .mockReturnValue({ exec: jest.fn().mockResolvedValue(null) });
     expect(await filesService.update('id', fileCreate)).toEqual(
-      'Arquivo Inexistente!'
+      'File not found!'
     );
   });
 

@@ -14,7 +14,7 @@ describe('ChokidarService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [BullModule.registerQueue({ name: config.bull.name })],
+      imports: [BullModule.registerQueue({ name: config.bull.queue })],
       providers: [ChokidarService, FSWatcher, FileProducerService],
     }).compile();
 

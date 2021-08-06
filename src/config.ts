@@ -4,23 +4,40 @@ const mongoUser = process.env.MONGO_USER;
 const mongoPassword = process.env.MONGO_PASS;
 const mongoPort = process.env.MONGO_PORT;
 
-const isDocker = process.env.APP_DOCKER === 'TRUE';
+const isDocker = process.env.APP_DOCKER === 'true';
 const dockerFilesDirectory =
   process?.env?.NODE_ENV === 'production' ? 'files/' : '../files/';
-const nodeFilesDirectory = process?.env?.APP_INDEXER_FILES ?? './';
+const nodeFilesDirectory = process?.env?.INDEXER_FILES ?? './';
 
 export default {
   production: process?.env?.NODE_ENV === 'production',
   isDocker,
   filesDirectory: isDocker ? dockerFilesDirectory : nodeFilesDirectory,
-  ignoreInitial: process?.env?.APP_IGNORE_INITIAL
-    ? process?.env?.APP_IGNORE_INITIAL === 'TRUE'
+  mongoCollection: process?.env?.MONGO_COLLECTION ?? 'files',
+  removeFilename: process?.env?.REMOVE_FILENAME
+    ? process?.env?.REMOVE_FILENAME === 'true'
     : true,
-  mongoCollection: process?.env?.APP_MONGO_COLLECTION ?? 'files',
-  removeFilename: process?.env?.APP_REMOVE_FILENAME
-    ? process?.env?.APP_REMOVE_FILENAME === 'TRUE'
-    : true,
-  bull: { name: process?.env?.APP_BULL_QUEUE ?? 'fileIndexer' },
+  chokidar: {
+    ignoreInitial: process?.env?.IGNORE_INITIAL
+      ? process?.env?.IGNORE_INITIAL === 'true'
+      : false,
+    usePolling: process?.env?.LEGACY_MODE
+      ? process?.env?.LEGACY_MODE === 'true'
+      : isDocker
+      ? true
+      : false,
+    interval: process?.env?.INTERVAL ? Number(process?.env?.INTERVAL) : 100,
+    binaryInterval: process?.env?.BINARY_INTERVAL
+      ? Number(process?.env?.BINARY_INTERVAL)
+      : 300,
+  },
+  bull: {
+    queue: process?.env?.BULL_QUEUE ?? 'fileIndexer',
+    max: process?.env?.BULL_MAX ? Number(process?.env?.BULL_MAX) : 10,
+    board: process?.env?.BULL_BOARD
+      ? process?.env?.BULL_BOARD === 'true'
+      : false,
+  },
   redis: {
     host: process?.env?.REDIS_HOST,
     username: process?.env?.REDIS_USER,

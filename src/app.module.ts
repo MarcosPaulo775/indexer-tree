@@ -23,7 +23,7 @@ import { FileModule } from './modules/file/file.module';
   providers: [],
 })
 export class AppModule {
-  constructor(@InjectQueue(config.bull.name) private fileQueue: Queue) {}
+  constructor(@InjectQueue(config.bull.queue) private fileQueue: Queue) {}
 
   configure(consumer: MiddlewareBuilder) {
     const { router } = createBullBoard([new BullAdapter(this.fileQueue)]);

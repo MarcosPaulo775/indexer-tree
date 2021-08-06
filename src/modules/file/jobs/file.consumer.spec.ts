@@ -22,10 +22,10 @@ describe('FileConsumer', () => {
     module = await Test.createTestingModule({
       imports: [
         BullModule.registerQueue({
-          name: config.bull.name,
+          name: config.bull.queue,
           limiter: {
-            max: 100,
-            duration: 60000,
+            max: config.bull.max,
+            duration: 1000,
           },
         }),
       ],
@@ -54,7 +54,7 @@ describe('FileConsumer', () => {
   it('add file consumer file is root', async () => {
     expect(
       await fileConsumer.addFile({ data: config.filesDirectory } as Job<string>)
-    ).toEqual('Raiz do projeto ignorada!');
+    ).toEqual('Project root ignored!');
   });
 
   it('add file consumer exist', async () => {
@@ -64,7 +64,7 @@ describe('FileConsumer', () => {
     jest.spyOn(fileService, 'isIndexed').mockResolvedValue(true);
     expect(
       await fileConsumer.addFile({ data: 'path/file.txt' } as Job<string>)
-    ).toEqual('Arquivo path/file.txt já existe!');
+    ).toEqual('File path/file.txt already exists!');
   });
 
   it('add file consumer unexist', async () => {
@@ -75,7 +75,7 @@ describe('FileConsumer', () => {
     jest.spyOn(fileService, 'create').mockResolvedValue({} as FileDocument);
     expect(
       await fileConsumer.addFile({ data: 'path/file.txt' } as Job<string>)
-    ).toEqual('Arquivo path/file.txt adicionado com sucesso!');
+    ).toEqual('File path/file.txt successfully added!');
   });
 
   it('add dir consumer folder is root', async () => {
@@ -83,7 +83,7 @@ describe('FileConsumer', () => {
       await fileConsumer.addDir({
         data: config.filesDirectory,
       } as Job<string>)
-    ).toEqual('Raiz do projeto ignorada!');
+    ).toEqual('Project root ignored!');
   });
 
   it('add dir consumer folder exist', async () => {
@@ -93,7 +93,7 @@ describe('FileConsumer', () => {
     jest.spyOn(fileService, 'isIndexed').mockResolvedValue(true);
     expect(
       await fileConsumer.addDir({ data: 'path/folder' } as Job<string>)
-    ).toEqual('Pasta path/folder já existe!');
+    ).toEqual('Folder path/folder already exists!');
   });
 
   it('add dir consumer folder unexist', async () => {
@@ -104,7 +104,7 @@ describe('FileConsumer', () => {
     jest.spyOn(fileService, 'create').mockResolvedValue({} as FileDocument);
     expect(
       await fileConsumer.addDir({ data: 'path/folder' } as Job<string>)
-    ).toEqual('Pasta path/folder adicionado com sucesso!');
+    ).toEqual('Folder path/folder successfully added!');
   });
 
   it('unlink file consumer exist delete sucess', async () => {
@@ -117,7 +117,7 @@ describe('FileConsumer', () => {
     jest.spyOn(fileService, 'delete').mockResolvedValue(true);
     expect(
       await fileConsumer.unlinkFile({ data: 'path/file.txt' } as Job<string>)
-    ).toEqual('Arquivo path/file.txt deletado com sucesso!');
+    ).toEqual('File path/file.txt successfully deleted!');
   });
 
   it('unlink file consumer exist delete fail', async () => {
@@ -130,7 +130,7 @@ describe('FileConsumer', () => {
     jest.spyOn(fileService, 'delete').mockResolvedValue(false);
     expect(
       await fileConsumer.unlinkFile({ data: 'path/file.txt' } as Job<string>)
-    ).toEqual('Erro ao deletar arquivo path/file.txt!');
+    ).toEqual('Error deleting file path/file.txt!');
   });
   it('unlink file consumer unexist', async () => {
     jest
@@ -141,7 +141,7 @@ describe('FileConsumer', () => {
       .mockResolvedValue(null);
     expect(
       await fileConsumer.unlinkFile({ data: 'path/file.txt' } as Job<string>)
-    ).toEqual('Arquivo path/file.txt inexistente!');
+    ).toEqual('File path/file.txt not found!');
   });
 
   it('unlink dir consumer folder exist delete sucess', async () => {
@@ -154,7 +154,7 @@ describe('FileConsumer', () => {
     jest.spyOn(fileService, 'delete').mockResolvedValue(true);
     expect(
       await fileConsumer.unlinkDir({ data: 'path/folder' } as Job<string>)
-    ).toEqual('Pasta path/folder deletada com sucesso!');
+    ).toEqual('Folder path/folder successfully deleted!');
   });
 
   it('unlink dir consumer folder exist delete fail', async () => {
@@ -167,7 +167,7 @@ describe('FileConsumer', () => {
     jest.spyOn(fileService, 'delete').mockResolvedValue(false);
     expect(
       await fileConsumer.unlinkDir({ data: 'path/folder' } as Job<string>)
-    ).toEqual('Erro ao deletar pasta path/folder!');
+    ).toEqual('Error deleting folder path/folder!');
   });
   it('unlink dir consumer folder unexist', async () => {
     jest
@@ -178,6 +178,6 @@ describe('FileConsumer', () => {
       .mockResolvedValue(null);
     expect(
       await fileConsumer.unlinkDir({ data: 'path/folder' } as Job<string>)
-    ).toEqual('Pasta path/folder inexistente!');
+    ).toEqual('Folder path/folder not found!');
   });
 });

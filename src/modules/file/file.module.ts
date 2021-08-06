@@ -16,9 +16,9 @@ import { FileSchema } from './models/file.schema';
       { name: 'File', schema: FileSchema, collection: config.mongoCollection },
     ]),
     BullModule.registerQueue({
-      name: config.bull.name,
+      name: config.bull.queue,
       limiter: {
-        max: 1,
+        max: config.bull.max,
         duration: 1000,
       },
     }),

@@ -14,12 +14,11 @@ export class ChokidarService {
 
   startChokidar(ignoreInitial: boolean) {
     this.chokidar = new FSWatcher({
-      persistent: true,
-      usePolling: true,
-      interval: 200,
-      binaryInterval: 600,
-      ignorePermissionErrors: false,
       ignoreInitial,
+      ignorePermissionErrors: true,
+      usePolling: config.chokidar.usePolling,
+      interval: config.chokidar.interval,
+      binaryInterval: config.chokidar.binaryInterval,
     });
 
     this.chokidar.add(config.filesDirectory);

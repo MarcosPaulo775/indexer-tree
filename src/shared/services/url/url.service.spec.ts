@@ -20,14 +20,14 @@ describe('UrlService', () => {
 
   it('extract url information', () => {
     if (config.removeFilename) {
-      expect(urlService.extractUrlInformation('url/qualquer/file')).toEqual({
+      expect(urlService.extractUrlInformation('url/any/file')).toEqual({
         name: 'file',
-        path: ['url', 'qualquer'],
+        path: ['url', 'any'],
       });
     } else {
-      expect(urlService.extractUrlInformation('url/qualquer/file')).toEqual({
+      expect(urlService.extractUrlInformation('url/any/file')).toEqual({
         name: 'file',
-        path: ['url', 'qualquer', 'file'],
+        path: ['url', 'any', 'file'],
       });
     }
   });

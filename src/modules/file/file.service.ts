@@ -19,7 +19,7 @@ export class FileService {
     const file = await this.fileModel.findById(id).exec();
 
     if (!file) {
-      return 'Arquivo Inexistente!';
+      return 'File not found!';
     }
 
     const resp = await this.fileModel
@@ -27,8 +27,8 @@ export class FileService {
       .exec();
 
     return resp.ok === 1
-      ? 'Arquivo atualizado com sucesso!'
-      : 'Erro ao atualizar arquivo!';
+      ? 'File updated successfully!'
+      : 'Error updating file!';
   }
 
   async delete(id: string): Promise<boolean> {

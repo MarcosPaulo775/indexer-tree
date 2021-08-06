@@ -6,20 +6,16 @@
 
 Indexer Tree is an application in nodejs for mapping directories and files, where the objective is to save the addresses in mongoDB to reduce the search and browsing time in directories.
 
-### Bull-Board
-
-Bull-board runing on `/bull-board`.
-
 ## Example with docker-compose:
 
 ##### .env
 
 ```
 APP_PORT=3001
-APP_INDEXER_FILES=/home
-APP_IGNORE_INITIAL=FALSE
-APP_MONGO_COLLECTION=files
-APP_REMOVE_FILENAME=FALSE
+INDEXER_FILES=/home
+IGNORE_INITIAL=FALSE
+MONGO_COLLECTION=files
+REMOVE_FILENAME=FALSE
 
 REDIS_HOST=redis
 REDIS_PORT=6379
@@ -74,7 +70,7 @@ services:
     env_file:
       - ${ENV_FILE}
     volumes:
-      - ${APP_INDEXER_FILES}:/usr/src/indexer-tree/files
+      - ${INDEXER_FILES}:/usr/src/indexer-tree/files
     networks:
       - indexer-tree
     depends_on:
@@ -91,37 +87,42 @@ networks:
 
 ##### App
 
-`APP_IGNORE_INITIAL` (default: `true`)
+`REMOVE_FILENAME` (default: `true`)
 
-`APP_REMOVE_FILENAME` (default: `true`)
+`BULL_QUEUE` (default: `fileIndexer`)
 
-`APP_BULL_QUEUE` (default: `fileIndexer`)
+`BULL_MAX` (default: `10`): Max jobs run per second.
 
-`APP_MONGO_COLLECTION` (default: `files`)
+`BULL_BOARD` (default: `false`): if true bull-board runing on `/bull-board`.
+
+`MONGO_COLLECTION` (default: `files`)
+
+`IGNORE_INITIAL` (default: `false`)
+
+`INTERVAL` (default: `100`): Interval of file system polling, in milliseconds.
+
+`BINARY_INTERVAL` (default: `300`): Interval of file system
+polling for [binary files](https://github.com/sindresorhus/binary-extensions/blob/master/binary-extensions.json).
 
 ##### Redis
 
-`REDIS_HOST` (Required)
+`REDIS_HOST` (required)
 
-`REDIS_PORT` (Required)
+`REDIS_PORT` (required)
 
 `REDIS_PASS`
 
-`REDIS_VOLUME_PATH`
-
 ##### MongoDb
 
-`MONGO_HOST` (Required)
+`MONGO_HOST` (required)
 
-`MONGO_PORT` (Required)
+`MONGO_PORT` (required)
 
 `MONGO_DATABASE` (default: `indexer-tree`)
 
-`MONGO_USER` (Required)
+`MONGO_USER` (required)
 
-`MONGO_PASS` (Required)
-
-`MONGO_VOLUME_PATH`
+`MONGO_PASS` (required)
 
 `MONGO_AUTH_SOURCE` (default: `admin`)
 

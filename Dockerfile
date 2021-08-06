@@ -1,6 +1,6 @@
 FROM node:14-alpine
 
-ENV APP_DOCKER TRUE
+ENV APP_DOCKER true
 WORKDIR /app
 
 COPY ["package.json", "yarn.lock", "./"]

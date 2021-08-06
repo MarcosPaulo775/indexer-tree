@@ -31,12 +31,12 @@ services:
       - ${APP_PORT}:3000
     build:
       context: ./
-      dockerfile: ${DOCKER_FILE}
+      dockerfile: Dockerfile
     env_file:
       - ${ENV_FILE}
     volumes:
       - ./src:/app/src
-      - ${APP_INDEXER_FILES}:/files
+      - ${INDEXER_FILES}:/files
     networks:
       - indexer-tree
     depends_on:
