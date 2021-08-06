@@ -6,7 +6,7 @@ import config from '../../../config';
 
 @Injectable()
 export class FileProducerService {
-  constructor(@InjectQueue(config.bull.name) private fileQueue: Queue) {}
+  constructor(@InjectQueue(config.bull.queue) private fileQueue: Queue) {}
 
   async addFile(url: string) {
     await this.fileQueue.add('addFile', url, { delay: 1000 }).catch((e) => e);

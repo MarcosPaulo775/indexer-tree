@@ -9,6 +9,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   await app.listen(3000);
   const chokidarService = app.get<ChokidarService>(ChokidarService);
-  chokidarService.startChokidar(config.ignoreInitial);
+  chokidarService.startChokidar(config.chokidar.ignoreInitial);
+  console.log(config);
 }
 bootstrap();

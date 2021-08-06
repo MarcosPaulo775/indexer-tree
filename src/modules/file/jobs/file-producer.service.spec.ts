@@ -12,10 +12,10 @@ describe('FileProducerService', () => {
     module = await Test.createTestingModule({
       imports: [
         BullModule.registerQueue({
-          name: config.bull.name,
+          name: config.bull.queue,
           limiter: {
-            max: 100,
-            duration: 60000,
+            max: config.bull.max,
+            duration: 1000,
           },
         }),
       ],
@@ -30,25 +30,25 @@ describe('FileProducerService', () => {
   });
 
   it('add file', async () => {
-    const queue: Queue = module.get<Queue>(getQueueToken(config.bull.name));
+    const queue: Queue = module.get<Queue>(getQueueToken(config.bull.queue));
     jest.spyOn(queue, 'add').mockRejectedValue({ catch: Error() });
     expect(await fileProducerService.addFile('path/file')).toBe(undefined);
   });
 
   it('add dir', async () => {
-    const queue: Queue = module.get<Queue>(getQueueToken(config.bull.name));
+    const queue: Queue = module.get<Queue>(getQueueToken(config.bull.queue));
     jest.spyOn(queue, 'add').mockRejectedValue({ catch: Error() });
     expect(await fileProducerService.addDir('path/folder')).toBe(undefined);
   });
 
   it('unlink file', async () => {
-    const queue: Queue = module.get<Queue>(getQueueToken(config.bull.name));
+    const queue: Queue = module.get<Queue>(getQueueToken(config.bull.queue));
     jest.spyOn(queue, 'add').mockRejectedValue({ catch: Error() });
     expect(await fileProducerService.unlinkFile('path/file')).toBe(undefined);
   });
 
   it('unlink dir', async () => {
-    const queue: Queue = module.get<Queue>(getQueueToken(config.bull.name));
+    const queue: Queue = module.get<Queue>(getQueueToken(config.bull.queue));
     jest.spyOn(queue, 'add').mockRejectedValue({ catch: Error() });
     expect(await fileProducerService.unlinkDir('path/folder')).toBe(undefined);
   });

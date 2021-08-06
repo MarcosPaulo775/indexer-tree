@@ -1,4 +1,4 @@
-<center>
+<div align="center">
 
 ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/MarcosPaulo775/indexer-tree-docker/Jest?label=Jest&logo=Jest)
 ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/MarcosPaulo775/indexer-tree-docker/Docker%20CI?label=Docker%20CI&logo=docker&logoColor=white)
@@ -8,7 +8,7 @@
 [![docker-version](https://img.shields.io/docker/v/marcospaulo775/indexer-tree/latest?color=light-green)](https://hub.docker.com/r/marcospaulo775/indexer-tree)
 [![docker-size](https://img.shields.io/docker/image-size/marcospaulo775/indexer-tree/latest?color=light-green)](https://hub.docker.com/r/marcospaulo775/indexer-tree)
 
-</center>
+</div>
 
 ## Description
 

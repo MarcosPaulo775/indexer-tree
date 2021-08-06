@@ -7,7 +7,7 @@ import config from '../../../config';
 import { FileService } from '../file.service';
 import { FileDto } from '../models/file.dto';
 
-@Processor(config.bull.name)
+@Processor(config.bull.queue)
 export class FileConsumer {
   constructor(
     private fileService: FileService,
@@ -22,11 +22,11 @@ export class FileConsumer {
       const file = await this.fileService.isIndexed(name, path);
       if (!file) {
         await this.fileService.create(new FileDto(name, path, false));
-        return `Arquivo ${path.join('/')} adicionado com sucesso!`;
+        return `File ${path.join('/')} successfully added!`;
       }
-      return `Arquivo ${path.join('/')} já existe!`;
+      return `File ${path.join('/')} already exists!`;
     }
-    return 'Raiz do projeto ignorada!';
+    return 'Project root ignored!';
   }
 
   @Process('addDir')
@@ -37,11 +37,11 @@ export class FileConsumer {
       const file = await this.fileService.isIndexed(name, path);
       if (!file) {
         await this.fileService.create(new FileDto(name, path, true));
-        return `Pasta ${path.join('/')} adicionado com sucesso!`;
+        return `Folder ${path.join('/')} successfully added!`;
       }
-      return `Pasta ${path.join('/')} já existe!`;
+      return `Folder ${path.join('/')} already exists!`;
     }
-    return 'Raiz do projeto ignorada!';
+    return 'Project root ignored!';
   }
 
   @Process('unlinkFile')
@@ -56,11 +56,11 @@ export class FileConsumer {
     if (file) {
       const resp = await this.fileService.delete(file._id);
       if (resp) {
-        return `Arquivo ${path.join('/')} deletado com sucesso!`;
+        return `File ${path.join('/')} successfully deleted!`;
       }
-      return `Erro ao deletar arquivo ${path.join('/')}!`;
+      return `Error deleting file ${path.join('/')}!`;
     }
-    return `Arquivo ${path.join('/')} inexistente!`;
+    return `File ${path.join('/')} not found!`;
   }
 
   @Process('unlinkDir')
@@ -75,10 +75,10 @@ export class FileConsumer {
     if (file) {
       const resp = await this.fileService.delete(file._id);
       if (resp) {
-        return `Pasta ${path.join('/')} deletada com sucesso!`;
+        return `Folder ${path.join('/')} successfully deleted!`;
       }
-      return `Erro ao deletar pasta ${path.join('/')}!`;
+      return `Error deleting folder ${path.join('/')}!`;
     }
-    return `Pasta ${path.join('/')} inexistente!`;
+    return `Folder ${path.join('/')} not found!`;
   }
 }
