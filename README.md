@@ -30,12 +30,63 @@ $ yarn start
 $ yarn build
 $ yarn start:prod
 
-# docker development
+# docker development - edit variables on ./env/docker.env
 $ yarn dev
 
-# docker production mode
+# docker production mode - edit variables on ./env/docker.env
 $ yarn prod
 ```
+
+## Environments variables
+
+`BULL_QUEUE` (default: `fileIndexer`)
+
+`BULL_MAX` (default: `10`): Max jobs run per second.
+
+`BULL_BOARD` (default: `false`): if true bull-board runing on `/bull-board`.
+
+`INTERVAL` (default: `100`): Interval of file system polling, in milliseconds.
+
+`BINARY_INTERVAL` (default: `300`): Interval of file system
+polling for [binary files](https://github.com/sindresorhus/binary-extensions/blob/master/binary-extensions.json).
+
+`MONGO_COLLECTION` (default: `files`)
+
+##### Redis
+
+`REDIS_HOST` (required)
+
+`REDIS_PORT` (required)
+
+`REDIS_PASS`
+
+##### MongoDb
+
+`MONGO_HOST` (required)
+
+`MONGO_PORT` (required)
+
+`MONGO_DATABASE` (default: `indexer-tree`)
+
+`MONGO_USER` (required)
+
+`MONGO_PASS` (required)
+
+`MONGO_AUTH_SOURCE` (default: `admin`)
+
+##### S3 (If want to send for AWS S3)
+
+`S3_REGION` (required)
+
+`S3_ACCESS_KEY_ID` (required)
+
+`S3_SECRET_ACCESS_KEY` (required)
+
+`S3_API_VERSION` (required)
+
+`S3_BUCKET` (required)
+
+`S3_PREFIX_KEY`
 
 ## Stay in touch
 

@@ -13,9 +13,7 @@ Indexer Tree is an application in nodejs for mapping directories and files, wher
 ```
 APP_PORT=3001
 INDEXER_FILES=/home
-IGNORE_INITIAL=FALSE
 MONGO_COLLECTION=files
-REMOVE_FILENAME=FALSE
 
 REDIS_HOST=redis
 REDIS_PORT=6379
@@ -85,24 +83,18 @@ networks:
 
 ## Environments variables
 
-##### App
-
-`REMOVE_FILENAME` (default: `true`)
-
 `BULL_QUEUE` (default: `fileIndexer`)
 
 `BULL_MAX` (default: `10`): Max jobs run per second.
 
 `BULL_BOARD` (default: `false`): if true bull-board runing on `/bull-board`.
 
-`MONGO_COLLECTION` (default: `files`)
-
-`IGNORE_INITIAL` (default: `false`)
-
 `INTERVAL` (default: `100`): Interval of file system polling, in milliseconds.
 
 `BINARY_INTERVAL` (default: `300`): Interval of file system
 polling for [binary files](https://github.com/sindresorhus/binary-extensions/blob/master/binary-extensions.json).
+
+`MONGO_COLLECTION` (default: `files`)
 
 ##### Redis
 
@@ -125,6 +117,20 @@ polling for [binary files](https://github.com/sindresorhus/binary-extensions/blo
 `MONGO_PASS` (required)
 
 `MONGO_AUTH_SOURCE` (default: `admin`)
+
+##### S3 (If want to send for AWS S3)
+
+`S3_REGION` (required)
+
+`S3_ACCESS_KEY_ID` (required)
+
+`S3_SECRET_ACCESS_KEY` (required)
+
+`S3_API_VERSION` (required)
+
+`S3_BUCKET` (required)
+
+`S3_PREFIX_KEY`
 
 ## Results
 

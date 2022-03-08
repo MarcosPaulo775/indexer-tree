@@ -1,6 +1,7 @@
 import { Processor, Process } from '@nestjs/bull';
 import { Job } from 'bull';
 
+import { S3Service } from '@shared/services/s3/s3.service';
 import { UrlService } from '@shared/services/url/url.service';
 
 import config from '../../../config';
@@ -11,17 +12,25 @@ import { FileDto } from '../models/file.dto';
 export class FileConsumer {
   constructor(
     private fileService: FileService,
-    private urlService: UrlService
+    private urlService: UrlService,
+    private s3Service: S3Service
   ) {}
 
   @Process('addFile')
   async addFile(job: Job<string>) {
     const url = job.data;
     if (url !== config.filesDirectory) {
-      const { name, path } = this.urlService.extractUrlInformation(url);
+      const { name, path } = this.urlService.extractUrlInformation(
+        url,
+        config.isDocker
+      );
       const file = await this.fileService.isIndexed(name, path);
       if (!file) {
-        await this.fileService.create(new FileDto(name, path, false));
+        const s3File = config.s3.bucket
+          ? await this.s3Service.uploadFile(path, name)
+          : undefined;
+
+        await this.fileService.create(new FileDto(name, path, false, s3File));
         return `File ${path.join('/')} successfully added!`;
       }
       return `File ${path.join('/')} already exists!`;
@@ -33,7 +42,10 @@ export class FileConsumer {
   async addDir(job: Job<string>) {
     const url = job.data;
     if (url !== config.filesDirectory) {
-      const { name, path } = this.urlService.extractUrlInformation(url);
+      const { name, path } = this.urlService.extractUrlInformation(
+        url,
+        config.isDocker
+      );
       const file = await this.fileService.isIndexed(name, path);
       if (!file) {
         await this.fileService.create(new FileDto(name, path, true));
@@ -47,7 +59,10 @@ export class FileConsumer {
   @Process('unlinkFile')
   async unlinkFile(job: Job<string>) {
     const url = job.data;
-    const { name, path } = this.urlService.extractUrlInformation(url);
+    const { name, path } = this.urlService.extractUrlInformation(
+      url,
+      config.isDocker
+    );
     const file = await this.fileService.findOneByNameAndPathAndIsDirectory(
       name,
       path,
@@ -66,7 +81,10 @@ export class FileConsumer {
   @Process('unlinkDir')
   async unlinkDir(job: Job<string>) {
     const url = job.data;
-    const { name, path } = this.urlService.extractUrlInformation(url);
+    const { name, path } = this.urlService.extractUrlInformation(
+      url,
+      config.isDocker
+    );
     const file = await this.fileService.findOneByNameAndPathAndIsDirectory(
       name,
       path,

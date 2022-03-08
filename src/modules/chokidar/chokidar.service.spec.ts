@@ -79,11 +79,7 @@ describe('ChokidarService', () => {
     expect(chokidarService.actionsEvents('change', 'path/url')).toBe(undefined);
   });
 
-  it('start chokidar ignore initial true', () => {
-    expect(chokidarService.startChokidar(true)).toEqual('Indexer started!');
-  });
-
-  it('start chokidar ignore initial false', async () => {
-    expect(chokidarService.startChokidar(false)).toEqual('Indexer started!');
+  it('start chokidar ignore initial', () => {
+    expect(chokidarService.startChokidar()).toEqual('Indexer started!');
   });
 });

@@ -14,13 +14,7 @@ export default {
   isDocker,
   filesDirectory: isDocker ? dockerFilesDirectory : nodeFilesDirectory,
   mongoCollection: process?.env?.MONGO_COLLECTION ?? 'files',
-  removeFilename: process?.env?.REMOVE_FILENAME
-    ? process?.env?.REMOVE_FILENAME === 'true'
-    : true,
   chokidar: {
-    ignoreInitial: process?.env?.IGNORE_INITIAL
-      ? process?.env?.IGNORE_INITIAL === 'true'
-      : false,
     usePolling: process?.env?.LEGACY_MODE
       ? process?.env?.LEGACY_MODE === 'true'
       : isDocker
@@ -40,18 +34,26 @@ export default {
   },
   redis: {
     host: process?.env?.REDIS_HOST,
-    username: process?.env?.REDIS_USER,
     password: process?.env?.REDIS_PASS,
     port: Number(process?.env?.REDIS_PORT),
   },
   mongo: {
+    host: mongoHost,
+    port: mongoPort,
+    dataBase: mongoDatabase,
+    user: mongoUser,
+    password: mongoPassword,
     uri: `mongodb://${mongoUser}:${mongoPassword}@${mongoHost}:${mongoPort}/${mongoDatabase}`,
     options: {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      useFindAndModify: false,
-      useCreateIndex: true,
       authSource: process?.env?.MONGO_AUTH_SOURCE ?? 'admin',
     },
+  },
+  s3: {
+    apiVersion: '2006-03-01',
+    region: process.env.S3_REGION ?? '',
+    bucket: process.env.S3_BUCKET ?? '',
+    accessKeyId: process.env.S3_ACCESS_KEY_ID ?? '',
+    secretAccessKey: process.env.S3_SECRET_ACCESS_KEY ?? '',
+    prefixKey: process.env.S3_PREFIX_KEY ?? '',
   },
 };
