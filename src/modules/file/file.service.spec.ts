@@ -17,7 +17,7 @@ describe('FileService', () => {
   );
 
   const file = {
-    _id: Types.ObjectId(),
+    _id: new Types.ObjectId(),
     name: 'fileName',
     path: ['folder', 'folder2', 'fileName'],
     isDirectory: false,

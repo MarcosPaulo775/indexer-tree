@@ -6,6 +6,7 @@ import { Queue } from 'bull';
 import { createBullBoard } from 'bull-board';
 import { BullAdapter } from 'bull-board/bullAdapter';
 
+import { AppService } from './app.service';
 import config from './config';
 import { ChokidarModule } from './modules/chokidar/chokidar.module';
 import { FileModule } from './modules/file/file.module';
@@ -20,7 +21,7 @@ import { FileModule } from './modules/file/file.module';
     FileModule,
   ],
   controllers: [],
-  providers: [],
+  providers: [AppService],
 })
 export class AppModule {
   constructor(@InjectQueue(config.bull.queue) private fileQueue: Queue) {}

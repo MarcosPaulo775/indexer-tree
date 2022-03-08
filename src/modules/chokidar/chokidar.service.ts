@@ -12,9 +12,9 @@ export class ChokidarService {
     private fileProducer: FileProducerService
   ) {}
 
-  startChokidar(ignoreInitial: boolean) {
+  startChokidar() {
     this.chokidar = new FSWatcher({
-      ignoreInitial,
+      ignoreInitial: false,
       ignorePermissionErrors: true,
       usePolling: config.chokidar.usePolling,
       interval: config.chokidar.interval,

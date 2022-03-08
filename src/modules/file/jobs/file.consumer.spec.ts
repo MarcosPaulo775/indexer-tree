@@ -4,16 +4,20 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { Job } from 'bull';
 import { Model } from 'mongoose';
 
+import { S3Service } from '@shared/services/s3/s3.service';
 import { UrlService } from '@shared/services/url/url.service';
 
 import config from '../../../config';
 import { FileService } from '../file.service';
+import { S3 } from '../models/file.dto';
 import { FileDocument } from '../models/file.schema';
 import { FileConsumer } from './file.consumer';
 
 describe('FileConsumer', () => {
   let urlService: UrlService;
   let fileService: FileService;
+  let s3Service: S3Service;
+
   let fileConsumer: FileConsumer;
 
   let module: TestingModule;
@@ -33,6 +37,7 @@ describe('FileConsumer', () => {
         FileConsumer,
         UrlService,
         FileService,
+        S3Service,
         {
           provide: getModelToken('File'),
           useValue: Model,
@@ -41,12 +46,14 @@ describe('FileConsumer', () => {
     }).compile();
 
     fileService = module.get<FileService>(FileService);
+    s3Service = module.get<S3Service>(S3Service);
     fileConsumer = module.get<FileConsumer>(FileConsumer);
     urlService = module.get<UrlService>(UrlService);
   });
 
   it('should be defined', () => {
     expect(fileService).toBeDefined();
+    expect(s3Service).toBeDefined();
     expect(fileConsumer).toBeDefined();
     expect(urlService).toBeDefined();
   });
@@ -67,15 +74,29 @@ describe('FileConsumer', () => {
     ).toEqual('File path/file.txt already exists!');
   });
 
-  it('add file consumer unexist', async () => {
-    jest
-      .spyOn(urlService, 'extractUrlInformation')
-      .mockReturnValue({ name: 'file.txt', path: ['path', 'file.txt'] });
-    jest.spyOn(fileService, 'isIndexed').mockResolvedValue(false);
-    jest.spyOn(fileService, 'create').mockResolvedValue({} as FileDocument);
-    expect(
-      await fileConsumer.addFile({ data: 'path/file.txt' } as Job<string>)
-    ).toEqual('File path/file.txt successfully added!');
+  describe('add file consumer unexist', () => {
+    it('with s3', async () => {
+      jest
+        .spyOn(urlService, 'extractUrlInformation')
+        .mockReturnValue({ name: 'file.txt', path: ['path', 'file.txt'] });
+      jest.spyOn(fileService, 'isIndexed').mockResolvedValue(false);
+      jest.spyOn(s3Service, 'uploadFile').mockResolvedValue({} as S3);
+      jest.spyOn(fileService, 'create').mockResolvedValue({} as FileDocument);
+      expect(
+        await fileConsumer.addFile({ data: 'path/file.txt' } as Job<string>)
+      ).toEqual('File path/file.txt successfully added!');
+    });
+
+    it('without s3', async () => {
+      jest
+        .spyOn(urlService, 'extractUrlInformation')
+        .mockReturnValue({ name: 'file.txt', path: ['path', 'file.txt'] });
+      jest.spyOn(fileService, 'isIndexed').mockResolvedValue(false);
+      jest.spyOn(fileService, 'create').mockResolvedValue({} as FileDocument);
+      expect(
+        await fileConsumer.addFile({ data: 'path/file.txt' } as Job<string>)
+      ).toEqual('File path/file.txt successfully added!');
+    });
   });
 
   it('add dir consumer folder is root', async () => {
