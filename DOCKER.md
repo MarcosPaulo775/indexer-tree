@@ -130,7 +130,10 @@ polling for [binary files](https://github.com/sindresorhus/binary-extensions/blo
 
 `S3_BUCKET` (required)
 
-`S3_PREFIX_KEY`
+`S3_PREFIX_KEY`: This is the path inside AWS S3. If undefined will preserved path of file.
+
+&nbsp;
+Example: `S3_PREFIX_KEY=2022/01`. Will save in S3 inside folder **2022/01**.
 
 ## Results
 
